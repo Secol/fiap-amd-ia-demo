@@ -16,20 +16,20 @@ load_dotenv()
 
 # Inicializa o cliente Minio para armazenamento de objetos
 minio_client = Minio(
-    "localhost:9000",
+    f"{os.getenv("MINIO_URL", "localhost")}:9000",
     access_key=os.getenv("MINIO_ACCESS_KEY"),
     secret_key=os.getenv("MINIO_SECRET_KEY"),
     secure=False
 )
 
 # Inicializa o cliente MongoDB e seleciona o banco de dados e a coleção
-mongo_client = MongoClient("mongodb://user:password@localhost:27017/")
+mongo_client = MongoClient(f"mongodb://user:password@{os.getenv("MONGODB_URL", "localhost")}:27017/")
 db = mongo_client["fiap-ia"]
 predictions_collection = db["predictions"]
 
 # Inicializa a conexão RabbitMQ e declara a fila
 rabbit_connection = pika.BlockingConnection(pika.ConnectionParameters(
-    host="localhost",
+    host=os.getenv("RABBITMQ_URL", "localhost"),
     credentials=pika.PlainCredentials("user", "password")
 ))
 channel = rabbit_connection.channel()

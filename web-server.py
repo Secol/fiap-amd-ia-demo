@@ -27,7 +27,7 @@ app.add_middleware(
 )
 
 # Inicializa o cliente MongoDB e seleciona o banco de dados e a coleção
-mongo_client = MongoClient(f"mongodb://user:password@{os.getenv("MONGO_URL", "localhost")}:27017/")
+mongo_client = MongoClient(f"mongodb://user:password@{os.getenv("MONGODB_URL", "localhost")}:27017/")
 db = mongo_client["fiap-ia"]
 predictions_collection = db["predictions"]
 

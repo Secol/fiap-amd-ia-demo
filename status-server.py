@@ -5,6 +5,10 @@ import pika
 import asyncio
 import json
 import time
+from dotenv import load_dotenv
+import os
+
+load_dotenv()
 
 # Inicializa a aplicação FastAPI
 app = FastAPI()
@@ -21,7 +25,7 @@ app.add_middleware(
 def get_rabbit_connection():
     """Cria uma nova conexão com o RabbitMQ."""
     return pika.BlockingConnection(pika.ConnectionParameters(
-        host="localhost",
+        host=os.getenv("RABBITMQ_URL", "localhost"),
         credentials=pika.PlainCredentials("user", "password")
     ))
 

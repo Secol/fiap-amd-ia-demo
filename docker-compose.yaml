@@ -51,6 +51,7 @@ services:
     environment:
       MONGODB_URL: mongodb-lab
       MINIO_URL: minio-lab
+      RABBITMQ_URL: rabbitmq-lab
 
 volumes:
   rabbitmq_data:
