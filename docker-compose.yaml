@@ -36,6 +36,21 @@ services:
     volumes:
       - mongodb_data:/data/db
       - ./init-mongo.js:/docker-entrypoint-initdb.d/init-mongo.js
+  devcontainer:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: devcontainer-lab
+    volumes:
+      - .:/workspace:cached
+    command: sleep infinity
+    depends_on:
+      - rabbitmq
+      - minio
+      - mongodb
+    environment:
+      MONGODB_URL: mongodb-lab
+      MINIO_URL: minio-lab
 
 volumes:
   rabbitmq_data:
